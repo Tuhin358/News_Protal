@@ -152,7 +152,7 @@
                 <div class="control-group ">
                     <label class="control-label" for="textarea2">Details English</label>
                     <div class="controls">
-                        <textarea class="textarea" name="details_en" rows="3" required></textarea>
+                        <textarea class="cleditor" name="details_en" rows="3" required></textarea>
                     </div>
 
                 </div>
@@ -160,7 +160,7 @@
                 <div class="form-group hidden-phone">
                     <label class="control-label" for="textarea2">Details Bangla</label>
                     <div class="controls">
-                        <textarea class="textarea" name="details_bn" rows="3" required></textarea>
+                        <textarea class="cleditor" name="details_bn" rows="3" required></textarea>
                     </div>
 
                 </div>

@@ -57,7 +57,7 @@
                                     <td>{{$row->subcategory->subcategory_bn }}</td>
                                     <td>{{$row->title_bd }}</td>
                                     <td>{{$row->details_bn }}</td>
-                                    <td><img src="{{ asset($row->image)}}" width="50px" height="70px"></td>
+                                    <td><img src="{{asset($row->image)}}" width="50px" height="70px"></td>
                                     <td>{{$row->post_date }}</td>
 
 

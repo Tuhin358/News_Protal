@@ -128,7 +128,12 @@ public function getSubdistricts($dis_id)
     public function edit($id)
     {
         $posts=Post::find($id);
-        return view('backend.post.edit',compact('posts'));
+        $categories = Category::get();
+        $subcategories = Subcategory::get();
+        $districts = District::get();
+        $subdistricts = Subdistrict::get();
+
+        return view('backend.post.edit',compact('posts','categories','subcategories','districts','subdistricts'));
     }
 
     /**
@@ -140,7 +145,46 @@ public function getSubdistricts($dis_id)
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'category_id'=>'required',
+            'dis_id'=>'required',
+            // 'title_bd'=>'required',
+            // 'title_en'=>'required',
+            // 'details_bn'=>'required',
+            // 'tags_bn'=>'required',
+            // 'image'=>'required|mimes:png,jpg,jpeg,webp,svg',
+        ]);
+        $old_img=$request->old_img;
+        $image=$request->file('image');
+        $name_gen=hexdec(uniqid());
+        $img_ext=strtolower($image->getClientOriginalExtension());
+        $img_name=$name_gen.'.'.$img_ext;
+        $up_location='images/headnews/';
+        $last_img=$up_location.$img_name;
+        $image->move($up_location,$img_name);
+        unlink($old_img);
+
+        Post::find($id)->Update([
+            'title_bd'=>$request->title_bd,
+            'title_en'=>$request->title_en,
+            //  'user_id'=> Auth::user()->id,
+            'category_id'=>$request->category_id,
+            'subcategory_id'=>$request->subcategory_id,
+            'dis_id'=>$request->dis_id,
+             'subdis_id'=>$request->subdis_id,
+            'image'=>$last_img,
+            'tags_bn'=>$request->tags_bn,
+            'tags_en'=>$request->tags_en,
+            'details_en'=>$request->details_en,
+            'details_bn'=>$request->details_bn,
+            'headline'=>$request->headline,
+            'bigthumbnail'=>$request->bigthumbnail,
+            'first_section'=>$request->first_section,
+            'time_section_thumbnil'=>$request->time_section_thumbnil,
+            'post_date'=> Carbon::now(),
+            'post_month'=>Carbon::now(),
+        ]);
+         return redirect()->route('all.post');
     }
 
     /**
