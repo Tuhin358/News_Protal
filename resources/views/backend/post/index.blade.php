@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>{{$key+1 }}</td>
                                     <td>{{$row->category->category_bn }}</td>
-                                    <td>{{$row->subcategory->subcategory_bn }}</td>
+                                    <td>{{$row->subcategory->subcategory_bn}}</td>
                                     <td>{{$row->title_bd }}</td>
                                     <td>{{$row->details_bn }}</td>
                                     <td><img src="{{asset($row->image)}}" width="50px" height="70px"></td>

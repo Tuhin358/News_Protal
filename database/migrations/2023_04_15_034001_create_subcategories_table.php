@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('subcategory_bn');
             $table->string('subcategory_en');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

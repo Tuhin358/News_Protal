@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
             $table->string('subdistrict_bn');
             $table->string('subdistrict_en');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

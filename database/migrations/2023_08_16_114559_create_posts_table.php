@@ -34,6 +34,7 @@ return new class extends Migration
             $table->integer('bigthumbnail')->nullable();
             $table->string('post_date')->nullable();
             $table->string('post_month')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
 
         });

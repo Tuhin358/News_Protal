@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -23,6 +24,8 @@ class PostController extends Controller
     {
         $posts=Post::get();
         return view('backend.post.index',compact('posts'));
+         //return view('backend.post.index',compact('posts'));
+
     }
 
     /**
@@ -48,6 +51,7 @@ public function getSubcategories($category_id)
      $subcategories=Subcategory::where('category_id',$category_id)->get();
      return response()->json($subcategories);
 }
+
 
 public function getSubdistricts($dis_id)
 {
@@ -128,13 +132,85 @@ public function getSubdistricts($dis_id)
     public function edit($id)
     {
         $posts=Post::find($id);
-        $categories = Category::get();
-        $subcategories = Subcategory::get();
-        $districts = District::get();
-        $subdistricts = Subdistrict::get();
+        $category=Category::find($posts->category_id);
+        $district=District::find($posts->dis_id);
 
-        return view('backend.post.edit',compact('posts','categories','subcategories','districts','subdistricts'));
+        $categories = Category::where('status',1)->latest()->get();
+        $subcategories = Subcategory::where('status',1)->latest()->get();
+        $districts = District::where('status',1)->latest()->get();
+        $subdistricts = Subdistrict::where('status',1)->latest()->get();
+
+        return view('backend.post.edit',compact('posts','categories','subcategories','districts','subdistricts','category','district'));
     }
+
+
+
+
+
+    // public function update(Request $request, $id){
+
+    //     $request->validate([
+    //                 'category_id'=>'required',
+    //                 'dis_id'=>'required',
+    //                 // 'title_bd'=>'required',
+    //                 // 'title_en'=>'required',
+    //                 // 'details_bn'=>'required',
+    //                 // 'tags_bn'=>'required',
+    //                 // 'image'=>'required|mimes:png,jpg,jpeg,webp,svg',
+    //             ]);
+
+    //             try{
+    //                 DB::beginTransaction();
+    //                 $post=new Post();
+    //                 $destination=public_path('images/headnews/');
+    //                 if(!File::exists($destination)){
+    //                     File::makeDirectory($destination,0755,true, true);
+    //                 }
+    //                 if($request->image!= null){
+    //                     unlink(public_path($post->image));
+    //             $image = $request->file('image');
+    //             $imageName = rand(111111,999999).'.'.$image->getClientOriginalExtension();
+    //             $image->move($destination, $imageName);
+    //             $image_path = 'images/headnews/'.$imageName;
+    //             $post->image = $image_path;
+    //                 }
+    //                 $post->title_bd=$request->title_bd;
+    //                 $post->title_en=$request->title_en;
+    //                 $post->category_id=$request->category_id;
+    //                 $post->title_bd=$request->title_bd;
+
+
+    //                 $post->tags_bn=$request->tags_bn;
+    //                 $post->tags_en=$request->tags_en;
+    //                 $post->details_en=$request->details_en;
+    //                 $post->details_bn=$request->details_bn;
+    //                 $post->headline=$request->headline;
+    //                 $post->bigthumbnail=$request->bigthumbnail;
+    //                 $post->first_section=$request->first_section;
+    //                 $post->time_section_thumbnil=$request->time_section_thumbnil;
+    //                 $post->post_date=$request->post_date;
+    //                 $post->post_month=$request->post_month;
+
+    //                 $post->save();
+    //                 DB::commit();
+    //                 // Alert::info('Product Update Done.');
+    //                 return redirect()->route('all.post');
+
+
+    //             }
+    //             catch (\Exception $e) {
+    //                 DB::rollback();
+    //                 return $e->getMessage();
+    //             }
+
+    // }
+
+
+
+
+
+
+
 
     /**
      * Update the specified resource in storage.
@@ -169,7 +245,7 @@ public function getSubdistricts($dis_id)
             'title_en'=>$request->title_en,
             //  'user_id'=> Auth::user()->id,
             'category_id'=>$request->category_id,
-            'subcategory_id'=>$request->subcategory_id,
+            //'subcategory_id'=>$request->subcategory_id,
             'dis_id'=>$request->dis_id,
              'subdis_id'=>$request->subdis_id,
             'image'=>$last_img,
@@ -188,7 +264,8 @@ public function getSubdistricts($dis_id)
     }
 
     /**
-     * Remove the specified resource from storage.
+
+    * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

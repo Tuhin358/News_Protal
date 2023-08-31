@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('district_bn');
             $table->string('district_en');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

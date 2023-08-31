@@ -60,23 +60,22 @@
                         <select id="categorySelect" name="category_id" style="margin-left: 20px">
                             <option selected="" disabled=""  >==Choose One==</option>
                             @foreach($categories as $data)
-                            <option value="{{$data->id }}">{{$data->category_bn}}</option>
+                            <option {{ $data->id == $category->id ? "selected":'' }} value="{{$data->id }}">{{ $data->category_bn }}</option>
                             @endforeach
-
 
                         </select>
                     </div>
                 </div>
+
 
                 <div class="control-group">
                     <label class="control-label">Select SubCategory</label>
                     <div class="control">
                         <select id="subcategorySelect" name="subcategory_id" style="margin-left: 20px">
                             <option selected="" disabled="" >==Choose One==</option>
-
-                            @foreach($subcategories as $data)
-                            <option value="{{$data->id }}">{{$data->subcategory_bn}}</option>
-                            @endforeach
+                            @foreach($category->subcategories as $subcategory)
+                            <option value="{{ $subcategory->id }}">{{ $subcategory->subcategory_bn }}</option>
+                           @endforeach
 
                     </select>
                     </div>
@@ -88,7 +87,9 @@
                         <select id="districtSelect" name="dis_id" style="margin-left: 20px">
                             <option selected="" disabled="" >==Choose One==</option>
                             @foreach($districts as $data)
-                            <option value="{{$data->id }}">{{$data->district_bn}}</option>
+                            <option {{ $data->id == $district->id ? "selected":'' }} value="{{$data->id }}">{{ $data->district_bn }}</option>
+
+                            {{--  <option value="{{$data->id }}">{{$data->district_bn}}</option>  --}}
                             @endforeach
                         </select>
                     </div>
@@ -99,7 +100,7 @@
                     <div class="control">
                         <select  id="subdistrictSelect" name="subdis_id" style="margin-left: 20px">
                             <option selected="" disabled="" >==Choose One==</option>
-                            @foreach($subdistricts as $data)
+                            @foreach($district->subdistricts as $data)
                             <option value="{{$data->id }}">{{$data->subdistrict_bn}}</option>
                             @endforeach
 
@@ -176,64 +177,6 @@
 </div><!--/span-->
 </div><!--/row-->
 </div><!--/row-->
-
-  <script>
-    $(document).ready(function() {
-        $('#categorySelect').on('change', function() {
-            var category_id = $(this).val();
-            if (category_id) {
-                $.ajax({
-                    url: '{{ route("get-subcategories", ":category_id") }}'.replace(':category_id', category_id),
-                    //url:"{{ url('/get-subcategories/') }}/"+category_id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#subcategorySelect').empty();
-                        $('#subcategorySelect').append('<option value="">Select Subcategory</option>');
-                        $.each(data, function(key, value) {
-                            $('#subcategorySelect').append('<option value="' + value.id + '">' + value.subcategory_bn + '</option>');
-                        });
-                      // console.log(data)
-                    }
-                });
-            } else {
-                alert("danger");
-                //$('#subcategorySelect').empty();
-                //$('#subcategorySelect').append('<option value="">Select Subcategory</option>');
-            }
-        });
-    });
-</script>
-             // District section
-
- <script>
-    $(document).ready(function() {
-        $('#districtSelect').on('change', function() {
-            var dis_id = $(this).val();
-            if (dis_id) {
-                $.ajax({
-                    url: '{{ route("get-subdistricts", ":dis_id") }}'.replace(':dis_id', dis_id),
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#subdistrictSelect').empty();
-                        $('#subdistrictSelect').append('<option value="">Select Subdistrict</option>');
-                        $.each(data, function(key, value) {
-                            $('#subdistrictSelect').append('<option value="' + value.id + '">' + value.subdistrict_bn + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#subdistrictSelect').empty();
-                $('#subdistrictSelect').append('<option value="">Select Subdistrict</option>');
-            }
-        });
-    });
-</script>
-
-
-
-
 
 
 @endsection

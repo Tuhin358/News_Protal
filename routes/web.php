@@ -72,6 +72,7 @@ Route::post('/subdistrict-upd/{id}',[SubDistrictController::class, 'update'])->n
 Route::get('/post-create',[PostController::class, 'create'])->name('insert.post');
 
 Route::get('/get-subcategories/{category_id}',[PostController::class, 'getSubcategories'])->name('get-subcategories');
+
 Route::get('/get-subdistricts/{dis_id}',[PostController::class, 'getSubdistricts'])->name('get-subdistricts');
 Route::post('/store-post',[PostController::class, 'store'])->name('store.post');
 Route::get('/all-post',[PostController::class, 'index'])->name('all.post');

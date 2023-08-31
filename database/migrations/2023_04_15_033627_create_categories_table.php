@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('category_bn');
             $table->string('category_en');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

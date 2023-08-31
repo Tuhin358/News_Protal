@@ -197,64 +197,6 @@
 </div><!--/row-->
 </div><!--/row-->
 
-  <script>
-    $(document).ready(function() {
-        $('#categorySelect').on('change', function() {
-            var category_id = $(this).val();
-            if (category_id) {
-                $.ajax({
-                    url: '{{ route("get-subcategories", ":category_id") }}'.replace(':category_id', category_id),
-                    //url:"{{ url('/get-subcategories/') }}/"+category_id,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#subcategorySelect').empty();
-                        $('#subcategorySelect').append('<option value="">Select Subcategory</option>');
-                        $.each(data, function(key, value) {
-                            $('#subcategorySelect').append('<option value="' + value.id + '">' + value.subcategory_bn + '</option>');
-                        });
-                      // console.log(data)
-                    }
-                });
-            } else {
-                alert("danger");
-                //$('#subcategorySelect').empty();
-                //$('#subcategorySelect').append('<option value="">Select Subcategory</option>');
-            }
-        });
-    });
-</script>
-             // District section
-
- <script>
-    $(document).ready(function() {
-        $('#districtSelect').on('change', function() {
-            var dis_id = $(this).val();
-            if (dis_id) {
-                $.ajax({
-                    url: '{{ route("get-subdistricts", ":dis_id") }}'.replace(':dis_id', dis_id),
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#subdistrictSelect').empty();
-                        $('#subdistrictSelect').append('<option value="">Select Subdistrict</option>');
-                        $.each(data, function(key, value) {
-                            $('#subdistrictSelect').append('<option value="' + value.id + '">' + value.subdistrict_bn + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#subdistrictSelect').empty();
-                $('#subdistrictSelect').append('<option value="">Select Subdistrict</option>');
-            }
-        });
-    });
-</script>
-
-
-
-
-
 
 @endsection
 
