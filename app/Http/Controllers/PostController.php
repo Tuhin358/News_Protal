@@ -245,7 +245,7 @@ public function getSubdistricts($dis_id)
             'title_en'=>$request->title_en,
             //  'user_id'=> Auth::user()->id,
             'category_id'=>$request->category_id,
-            //'subcategory_id'=>$request->subcategory_id,
+            'subcategory_id'=>$request->subcategory_id,
             'dis_id'=>$request->dis_id,
              'subdis_id'=>$request->subdis_id,
             'image'=>$last_img,

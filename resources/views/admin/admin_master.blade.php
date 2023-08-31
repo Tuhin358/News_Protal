@@ -552,7 +552,7 @@
                 var category_id = $(this).val();
                 if (category_id) {
                     $.ajax({
-                        url: '{{ route("get-subcategories", ":category_id") }}'.replace(':category_id', category_id),
+                        url: '{{ route("get-subcategories", ":category_id") }}'.replace(':category_id',category_id),
                         //url:"{{ url('/get-subcategories/') }}/"+category_id,
                         type: 'GET',
                         dataType: 'json',
@@ -566,9 +566,9 @@
                         }
                     });
                 } else {
-                    alert("danger");
-                    //$('#subcategorySelect').empty();
-                    //$('#subcategorySelect').append('<option value="">Select Subcategory</option>');
+                    //alert("danger");
+                   $('#subcategorySelect').empty();
+                   $('#subcategorySelect').append('<option value="">Select Subcategory</option>');
                 }
             });
         });
@@ -582,7 +582,7 @@
             var dis_id = $(this).val();
             if (dis_id) {
                 $.ajax({
-                    url: '{{ route("get-subdistricts", ":dis_id") }}'.replace(':dis_id', dis_id),
+                    url: '{{ route("get-subdistricts", ":dis_id") }}'.replace(':dis_id',dis_id),
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
