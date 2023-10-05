@@ -76,7 +76,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="{{route('dashboard')}}"><span>Metro</span></a>
+				<a class="brand" href="{{route('home')}}"><span>Metro</span></a>
                 {{--  {{route('dashboard')}}  --}}
 
 				<!-- start: Header Menu -->
@@ -334,7 +334,8 @@
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white user"></i>
-                                {{--  {{ Session::get('admin_name') }}  --}}
+                                {{ Auth::user()->name }}
+
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
@@ -342,8 +343,19 @@
  									<span>Account Settings</span>
 								</li>
 								<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
-								<li><a href=" "><i class="halflings-icon off"></i> Logout</a></li>
-                                {{--  {{route('dashboard.logout') }}  --}}
+
+
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
 							</ul>
 						</li>
 						<!-- end: User Dropdown -->
@@ -370,7 +382,7 @@
 					<ul class="nav nav-tabs nav-stacked ">
                         {{--  main-menu  --}}
 
-						<li><a href="{{route('dashboard')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+						<li><a href="{{route('home')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
 
 
 						<li>

@@ -7,7 +7,9 @@ use App\Http\Controllers\SubCtegoryController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\SubDistrictController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\FrontendController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +24,11 @@ use App\Http\Controllers\PostController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
-// Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::group(['middleware'=>'auth'],function()
+{
+// Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
                             // Category
 Route::get('/categories-index',[CategoryController::class, 'index'])->name('all.index');
@@ -80,7 +84,14 @@ Route::get('/post-delete/{id}',[PostController::class, 'destroy'])->name('post.d
 Route::get('/post-edit/{id}',[PostController::class, 'edit'])->name('post.edit');
 Route::post('/post-update/{id}',[PostController::class, 'update'])->name('post.update');
 
+});
 
+Auth::routes();
+// Route::get('/admin-dashboard', [HomeController::class, 'index'])->name('dashboard');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+                  //....... Front-End Route
+
+Route::get('/',[FrontendController::class,'index'])->name('home.frontend');
 
 
